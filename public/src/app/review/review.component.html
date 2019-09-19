@@ -1,0 +1,11 @@
+<form class="my-4 mx-4" style="display: inline-block; vertical-align: middle;">
+    <select name="newReview.rating" [(ngModel)]="newReview.rating" class="btn btn-outline-warning dropdown-toggle">
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★</option>
+        <option value="3">★★★</option>
+        <option value="2">★★</option>
+        <option value="1">★</option>
+    </select><br>
+    <textarea class="form-group green-border-focus my-3" name="newReview.comment" [(ngModel)]="newReview.comment" cols="30" rows="4"></textarea><br>
+    <input type="submit" value="Rate!" class="btn btn-success" (click)="leaveReview()">
+</form>

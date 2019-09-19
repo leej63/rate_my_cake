@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<h1 class="text-primary" style="text-align: center;">Rate My Cakes</h1>
+<div class="row">
+  <div class="col">
+    <div class="submission_box">
+      <form (submit)="onSubmit()" class="text-center border p-4" style="width: 400px; float: right;">
+        <span style="color: red;" *ngIf="!name.valid">Your name is invalid, need atleast 2 characters!</span><br>
+        <span style="color: red;">{{image.errors | json}} {{image.valid}}</span>
+        <p>{{ newCake | json }}</p>
+        <p class="h4 mb-4">Submit a cake to be rated!</p>
+        <label>
+          Baker name:
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="newCake.name"
+            class="form-control mb-2"
+            #name="ngModel"
+            required
+            minlength="2"
+          >
+        </label><br>
+        <label>
+          Image URL:
+          <input
+            type="text"
+            name="image"
+            [(ngModel)]="newCake.image"
+            class="form-control mb-2"
+            #image="ngModel"
+            required
+          >
+        </label><br>
+        <input *ngIf="name.valid && image.valid" type="submit" class="btn btn-info my-2" value="Submit">
+      </form>
+    </div>
+  </div>
+  <div class="col">
+    <div class="review_box" style="height: 270px; width: 550px; overflow: auto;">
+      <div *ngFor="let cake of cakes" style="height: 270px;">
+        <img (click)="showOneCake(cake['_id'])" src="{{cake.image}}" class="rounded ml-4" style="height: 225px; width: 225px;" alt="a cake">
+        <app-review [cakeToReview]="cake"></app-review>
+      </div>
+    </div>
+  </div>
+</div>
+<app-cake *ngIf="cakeToShow" [showCake]="cakeToShow"></app-cake>
+
+<router-outlet></router-outlet>
